@@ -52,18 +52,35 @@ const tree = function (array) {
             // get the inOrder childe who is smallest in the left subtree
             root.data = minValue(root.right);
             // delete the inOrder successor  
-            root.right=remove(root.data, root.right);
+            root.right = remove(root.data, root.right);
+        }
+        // look for the min value in the left of subtree 
+        function minValue(root) {
+            let minv = root.data;
+            while (root.left != null) {
+                minv = root.left.data;
+                root = root.left;
+            }
+            return minv;
         }
         return root;
     }
-// look for the min value in the left of subtree 
-    function minValue(root) {
-        let minv = root.data;
-        while (root.left != null) {
-            minv = root.left.data;
-            root = root.left;
+    //accepts a value and returns a node with the given value 
+    const find = function (value, root = this.root) {
+        //base case 
+        if (root === null) {
+            return root;
         }
-        return minv;
+        //else traverse down the tree to the leaf 
+        if (root.data > value) {
+            return find(value, root.left);
+        }
+        else if (root.data < value) {
+            return find(value, root.right);
+        }
+        else {
+            return root;
+        }
     }
     //sort and delete duplicated values 
     let sortedArray = [...new Set(array.sort(function (a, b) { return a - b }))];
@@ -71,10 +88,9 @@ const tree = function (array) {
         root: buildTree(sortedArray, 0, sortedArray.length - 1),
         insert,
         remove,
+        find,
     };
 };
-
-
 //  function to create a balanced binary tree from sorted array 
 const buildTree = function (array, start, end) {
     //base case to stope recursion 
@@ -90,11 +106,6 @@ const buildTree = function (array, start, end) {
     return Node;
 }
 
-
-
-
-
-
 //binary search tree visualization 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node.right !== null) {
@@ -108,11 +119,16 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 
 let newTree = tree([5, 5, 5, 8, 7, 4, 6, 9, 8, 7, 6, 5]);
 
+
+
+// test 
 console.log(newTree);
 newTree.insert(10);
 newTree.insert(2);
 newTree.insert(3);
 newTree.insert(25);
 newTree.remove(8);
+console.log(newTree.find(6));
 prettyPrint(newTree.root);
+
 
