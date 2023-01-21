@@ -17,17 +17,53 @@ const tree = function (array) {
         }
         //else traverse down the tree to the leaf 
         if (root.data > value) {
-            console.log(root);
             root.left = insert(value, root.left);
         }
         else if (root.data < value) {
-            console.log(root);
             root.right = insert(value, root.right);
         }
         return root;
     }
     // delete a specific node from the binary tree
-    const remove = function (value) {
+    const remove = function (value, root = this.root) {
+        //base case 
+        if (root === null) {
+            return root;
+        }
+        //else traverse down the tree to the leaf 
+        if (root.data > value) {
+            root.left = remove(value, root.left);
+        }
+        else if (root.data < value) {
+            root.right = remove(value, root.right);
+        }
+        // if key is same as root's
+        // key, then This is the
+        // node to be deleted
+        else {
+            //when node have only one childe 
+            if (root.right === null) {
+                return root.left;
+            }
+            else if (root.left === null) {
+                return root.right;
+            }
+            //node with two children 
+            // get the inOrder childe who is smallest in the left subtree
+            root.data = minValue(root.right);
+            // delete the inOrder successor  
+            root.right=remove(root.data, root.right);
+        }
+        return root;
+    }
+// look for the min value in the left of subtree 
+    function minValue(root) {
+        let minv = root.data;
+        while (root.left != null) {
+            minv = root.left.data;
+            root = root.left;
+        }
+        return minv;
     }
     //sort and delete duplicated values 
     let sortedArray = [...new Set(array.sort(function (a, b) { return a - b }))];
@@ -74,5 +110,9 @@ let newTree = tree([5, 5, 5, 8, 7, 4, 6, 9, 8, 7, 6, 5]);
 
 console.log(newTree);
 newTree.insert(10);
+newTree.insert(2);
+newTree.insert(3);
+newTree.insert(25);
+newTree.remove(8);
 prettyPrint(newTree.root);
 
