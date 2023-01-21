@@ -82,7 +82,7 @@ const tree = function (array) {
             return root;
         }
     }
-    // level order traversal of the balanced  binary tree 
+    // breadth first level order traversal of the balanced  binary tree 
     const levelOrder = function (Callback) {
         //first in first out queue 
         const queue = [];
@@ -102,7 +102,42 @@ const tree = function (array) {
             if (current.left !== null) { queue.push(current.left); }
             if (current.right !== null) { queue.push(current.right); }
         }
-        if(LOList.length>0) return LOList;
+        if (LOList.length > 0) return LOList;
+    }
+    // depth first preOrder traversal of the balanced  binary tree 
+    const preOrder = function (Callback, node = this.root, preOrderList = []) {
+        //base case 
+        if (node === null) { return node; }
+        //preOrder
+        if (Callback) { Callback(node); }
+        else { preOrderList.push(node.data); }
+        preOrder(Callback, node.left, preOrderList);
+        preOrder(Callback, node.right, preOrderList);
+
+        return preOrderList;
+    }
+    // depth first inOrder traversal of the balanced  binary tree 
+    const inOrder = function (Callback, node = this.root, inOrderList = []) {
+        //base case 
+        if (node === null) { return node; }
+        //inOrder
+        inOrder(Callback, node.left, inOrderList);
+        if (Callback) { Callback(node); }
+        else { inOrderList.push(node.data); }
+        inOrder(Callback, node.right, inOrderList);
+        return inOrderList;
+    }
+    // depth first postOrder traversal of the balanced  binary tree 
+    const postOrder = function (Callback, node = this.root, postOrderList = []) {
+        //base case 
+        if (node === null) { return node; }
+        //postOrder
+        postOrder(Callback, node.left, postOrderList);
+        postOrder(Callback, node.right, postOrderList);
+        if (Callback) { Callback(node); }
+        else { postOrderList.push(node.data); }
+        
+        return postOrderList;
     }
     //sort and delete duplicated values 
     const sortedArray = [...new Set(array.sort(function (a, b) { return a - b }))];
@@ -112,8 +147,13 @@ const tree = function (array) {
         remove,
         find,
         levelOrder,
+        preOrder,
+        inOrder,
+        postOrder,
     };
 };
+
+
 //  function to create a balanced binary tree from sorted array 
 const buildTree = function (array, start, end) {
     //base case to stope recursion 
@@ -155,4 +195,10 @@ console.log(newTree.find(6));
 prettyPrint(newTree.root);
 console.log(newTree.levelOrder());
 newTree.levelOrder(console.log);
+console.log(newTree.preOrder());
+newTree.preOrder(console.log);
+console.log(newTree.inOrder());
+newTree.inOrder(console.log);
+console.log(newTree.postOrder());
+newTree.postOrder(console.log);
 
