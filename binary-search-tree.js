@@ -57,7 +57,7 @@ const tree = function (array) {
         // look for the min value in the left of subtree 
         function minValue(root) {
             let minv = root.data;
-            while (root.left != null) {
+            while (root.left !== null) {
                 minv = root.left.data;
                 root = root.left;
             }
@@ -82,13 +82,36 @@ const tree = function (array) {
             return root;
         }
     }
+    // level order traversal of the balanced  binary tree 
+    const levelOrder = function (node = this.root, Callback) {
+        //first in first out queue 
+        const queue = [];
+        const LOList = [];
+        //enqueue the root node 
+        queue.push(node);
+        // while there is at least one discovered node in the queue keep going
+        while (queue.length > 0) {
+            // dequeue first element of queue 
+            const current = queue.shift();
+            //visit the current node 
+            //if callback is provided use it
+            //else return a array of the level order list 
+            if (Callback) { Callback(current); }
+            else { LOList.push(current.data); }
+            //enqueue the children 
+            if (current.left !== null) { queue.push(current.left); }
+            if (current.right !== null) { queue.push(current.right); }
+        }
+        if(LOList.length>0) return LOList;
+    }
     //sort and delete duplicated values 
-    let sortedArray = [...new Set(array.sort(function (a, b) { return a - b }))];
+    const sortedArray = [...new Set(array.sort(function (a, b) { return a - b }))];
     return {
         root: buildTree(sortedArray, 0, sortedArray.length - 1),
         insert,
         remove,
         find,
+        levelOrder,
     };
 };
 //  function to create a balanced binary tree from sorted array 
@@ -130,5 +153,6 @@ newTree.insert(25);
 newTree.remove(8);
 console.log(newTree.find(6));
 prettyPrint(newTree.root);
+console.log(newTree.levelOrder());
 
 
