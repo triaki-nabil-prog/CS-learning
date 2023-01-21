@@ -83,12 +83,12 @@ const tree = function (array) {
         }
     }
     // level order traversal of the balanced  binary tree 
-    const levelOrder = function (node = this.root, Callback) {
+    const levelOrder = function (Callback) {
         //first in first out queue 
         const queue = [];
         const LOList = [];
         //enqueue the root node 
-        queue.push(node);
+        queue.push(this.root);
         // while there is at least one discovered node in the queue keep going
         while (queue.length > 0) {
             // dequeue first element of queue 
@@ -154,5 +154,5 @@ newTree.remove(8);
 console.log(newTree.find(6));
 prettyPrint(newTree.root);
 console.log(newTree.levelOrder());
-
+newTree.levelOrder(console.log);
 
