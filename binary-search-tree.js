@@ -144,6 +144,7 @@ const tree = function (array) {
         //base case
         if (node === null) { return 0; }
         //recursively call all the nodes from the left and right subtree of the root node
+
         leftHeight = height(node.left);
         rightHeight = height(node.right);
         return (Math.max(leftHeight, rightHeight) + 1);
@@ -159,6 +160,15 @@ const tree = function (array) {
         else if ((dist = depth(node, root.right)) >= 0) { return dist + 1 }
         return dist;
     }
+    //checks if tree is balanced
+    const isBalanced = function (node = this.root) {
+        let balance = false;
+        //base case
+        if (node === null) { return balance = true; }
+        let diff = Math.abs(height(node.left) - height(node.right));
+        if (diff <= 1 && isBalanced(node.left) && isBalanced(node.right)) { return balance = true; }
+        return balance;
+    }
     //sort and delete duplicated values 
     const sortedArray = [...new Set(array.sort(function (a, b) { return a - b }))];
     return {
@@ -172,6 +182,7 @@ const tree = function (array) {
         postOrder,
         height,
         depth,
+        isBalanced,
     };
 };
 
@@ -212,6 +223,10 @@ newTree.insert(10);
 newTree.insert(2);
 newTree.insert(3);
 newTree.insert(25);
+newTree.insert(26);
+newTree.insert(27);
+newTree.insert(28);
+newTree.insert(29);
 newTree.remove(8);
 console.log(newTree.find(6));
 prettyPrint(newTree.root);
@@ -227,4 +242,5 @@ console.log(newTree.height(newTree.find(6)));
 console.log(newTree.depth(newTree.find(4)));
 console.log(newTree.depth(newTree.find(6)));
 console.log(newTree.depth(newTree.find(25)));
+console.log(newTree.isBalanced());
 
