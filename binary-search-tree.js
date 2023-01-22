@@ -169,6 +169,12 @@ const tree = function (array) {
         if (diff <= 1 && isBalanced(node.left) && isBalanced(node.right)) { return balance = true; }
         return balance;
     }
+    // reBalance a unbalanced binary tree
+    const reBalance = function () {
+        let array = this.inOrder();
+        let newBalancedTree = buildTree(array, 0, array.length - 1);
+        this.root = newBalancedTree;
+    }
     //sort and delete duplicated values 
     const sortedArray = [...new Set(array.sort(function (a, b) { return a - b }))];
     return {
@@ -183,6 +189,7 @@ const tree = function (array) {
         height,
         depth,
         isBalanced,
+        reBalance,
     };
 };
 
@@ -213,12 +220,11 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     }
 }
 
+//testing 
+// create a binary tree from a array of randomly picked numbers 
 let newTree = tree([5, 5, 5, 8, 7, 4, 6, 9, 8, 7, 6, 5]);
 
-
-
-// test 
-console.log(newTree);
+prettyPrint(newTree.root);
 newTree.insert(10);
 newTree.insert(2);
 newTree.insert(3);
@@ -243,4 +249,6 @@ console.log(newTree.depth(newTree.find(4)));
 console.log(newTree.depth(newTree.find(6)));
 console.log(newTree.depth(newTree.find(25)));
 console.log(newTree.isBalanced());
+newTree.reBalance();
+prettyPrint(newTree.root);
 
