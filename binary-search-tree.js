@@ -136,8 +136,28 @@ const tree = function (array) {
         postOrder(Callback, node.right, postOrderList);
         if (Callback) { Callback(node); }
         else { postOrderList.push(node.data); }
-        
+
         return postOrderList;
+    }
+    // calculate the height of the given node 
+    const height = function (node) {
+        //base case
+        if (node === null) { return 0; }
+        //recursively call all the nodes from the left and right subtree of the root node
+        leftHeight = height(node.left);
+        rightHeight = height(node.right);
+        return (Math.max(leftHeight, rightHeight) + 1);
+    }
+    // calculate the depth of the given node 
+    const depth = function (node, root = this.root) {
+        // Initialize distance as -1
+        let dist = -1;
+        //Base case 
+        if (root === null) { return -1; }
+        if (node === root) { return dist + 1; }
+        else if ((dist = depth(node, root.left)) >= 0) { return dist + 1 }
+        else if ((dist = depth(node, root.right)) >= 0) { return dist + 1 }
+        return dist;
     }
     //sort and delete duplicated values 
     const sortedArray = [...new Set(array.sort(function (a, b) { return a - b }))];
@@ -150,6 +170,8 @@ const tree = function (array) {
         preOrder,
         inOrder,
         postOrder,
+        height,
+        depth,
     };
 };
 
@@ -201,4 +223,8 @@ console.log(newTree.inOrder());
 newTree.inOrder(console.log);
 console.log(newTree.postOrder());
 newTree.postOrder(console.log);
+console.log(newTree.height(newTree.find(6)));
+console.log(newTree.depth(newTree.find(4)));
+console.log(newTree.depth(newTree.find(6)));
+console.log(newTree.depth(newTree.find(25)));
 
