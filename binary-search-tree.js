@@ -223,8 +223,23 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 //testing 
 // create a binary tree from a array of randomly picked numbers 
 let newTree = tree([5, 5, 5, 8, 7, 4, 6, 9, 8, 7, 6, 5]);
-
+// display tree
 prettyPrint(newTree.root);
+// confirm that the tree is balanced 
+console.log(newTree.isBalanced());
+// print elements in preOrder
+console.log(newTree.preOrder());
+// newTree.preOrder(console.log);
+// print elements in postOrder
+console.log(newTree.postOrder());
+// newTree.postOrder(console.log);
+// print elements in inOrder
+console.log(newTree.inOrder());
+// newTree.inOrder(console.log);
+// print elements in levelOrder
+console.log(newTree.levelOrder());
+// newTree.levelOrder(console.log);
+// unbalance the tree by adding several numbers
 newTree.insert(10);
 newTree.insert(2);
 newTree.insert(3);
@@ -233,22 +248,87 @@ newTree.insert(26);
 newTree.insert(27);
 newTree.insert(28);
 newTree.insert(29);
+// remove a number
 newTree.remove(8);
+// search for a  node 
 console.log(newTree.find(6));
-prettyPrint(newTree.root);
-console.log(newTree.levelOrder());
-newTree.levelOrder(console.log);
-console.log(newTree.preOrder());
-newTree.preOrder(console.log);
-console.log(newTree.inOrder());
-newTree.inOrder(console.log);
-console.log(newTree.postOrder());
-newTree.postOrder(console.log);
+// find the hight of a node 
 console.log(newTree.height(newTree.find(6)));
+// find the depth of a node
 console.log(newTree.depth(newTree.find(4)));
-console.log(newTree.depth(newTree.find(6)));
-console.log(newTree.depth(newTree.find(25)));
+// confirm that tree is unbalanced 
 console.log(newTree.isBalanced());
-newTree.reBalance();
+// display tree
 prettyPrint(newTree.root);
+// Balance the tree 
+newTree.reBalance();
+// confirm that tree is balanced 
+console.log(newTree.isBalanced());
+// print elements in preOrder
+console.log(newTree.preOrder());
+// newTree.preOrder(console.log);
+// print elements in postOrder
+console.log(newTree.postOrder());
+// newTree.postOrder(console.log);
+// print elements in inOrder
+console.log(newTree.inOrder());
+// newTree.inOrder(console.log);
+// print elements in levelOrder
+console.log(newTree.levelOrder());
+// newTree.levelOrder(console.log);
+// display tree
+prettyPrint(newTree.root);
+
+
+// debug console results
+
+// │       ┌── 9
+// │   ┌── 8
+// │   │   └── 7
+// └── 6
+//     │   ┌── 5
+//     └── 4
+// true
+// (6) [6, 4, 5, 8, 7, 9]
+// (6) [5, 4, 7, 9, 8, 6]
+// (6) [4, 5, 6, 7, 8, 9]
+// (6) [6, 4, 8, 5, 7, 9]
+// {data: 6, left: {…}, right: {…}}
+// 8
+// 1
+// false
+// │                           ┌── 29
+// │                       ┌── 28
+// │                   ┌── 27
+// │               ┌── 26
+// │           ┌── 25
+// │       ┌── 10
+// │   ┌── 9
+// │   │   └── 7
+// └── 6
+//     │   ┌── 5
+//     └── 4
+//         │   ┌── 3
+//         └── 2
+// true
+// (13) [9, 4, 2, 3, 6, 5, 7, 26, 10, 25, 28, 27, 29]
+// (13) [3, 2, 5, 7, 6, 4, 25, 10, 27, 29, 28, 26, 9]
+// (13) [2, 3, 4, 5, 6, 7, 9, 10, 25, 26, 27, 28, 29]
+// (13) [9, 4, 26, 2, 6, 10, 28, 3, 5, 7, 25, 27, 29]
+// │           ┌── 29
+// │       ┌── 28
+// │       │   └── 27
+// │   ┌── 26
+// │   │   │   ┌── 25
+// │   │   └── 10
+// └── 9
+//     │       ┌── 7
+//     │   ┌── 6
+//     │   │   └── 5
+//     └── 4
+//         │   ┌── 3
+//         └── 2
+
+
+
 
