@@ -113,7 +113,6 @@ const tree = function (array) {
         else { preOrderList.push(node.data); }
         preOrder(Callback, node.left, preOrderList);
         preOrder(Callback, node.right, preOrderList);
-
         return preOrderList;
     }
     // depth first inOrder traversal of the balanced  binary tree 
@@ -136,7 +135,6 @@ const tree = function (array) {
         postOrder(Callback, node.right, postOrderList);
         if (Callback) { Callback(node); }
         else { postOrderList.push(node.data); }
-
         return postOrderList;
     }
     // calculate the height of the given node 
@@ -144,7 +142,6 @@ const tree = function (array) {
         //base case
         if (node === null) { return 0; }
         //recursively call all the nodes from the left and right subtree of the root node
-
         leftHeight = height(node.left);
         rightHeight = height(node.right);
         return (Math.max(leftHeight, rightHeight) + 1);
@@ -192,8 +189,6 @@ const tree = function (array) {
         reBalance,
     };
 };
-
-
 //  function to create a balanced binary tree from sorted array 
 const buildTree = function (array, start, end) {
     //base case to stope recursion 
